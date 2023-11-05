@@ -6,7 +6,7 @@
         <img src="../assets/heima.png" alt />
         <span>电商后台管理系统</span>
       </div>
-      <el-button type="info" @click="logout">{{ username }}退出</el-button>
+      <el-button type="info" @click="logout">退出</el-button>
     </el-header>
     <!-- 页面主体区域 -->
     <el-container>
@@ -64,6 +64,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   data() {
     return {
@@ -75,7 +76,11 @@ export default {
       activePath: '',
     }
   },
-  created() {},
+  created() {
+    this.activePath = window.sessionStorage.getItem('activePath')
+    //这里如果rightList的格式与前端想要的不同，可以先对rightList进行处理，再赋值给menuList
+    this.menulist = this.rightList
+  },
   methods: {
     logout() {
       this.$router.push('/login')
@@ -89,6 +94,9 @@ export default {
       window.sessionStorage.setItem('activePath', activePath)
       this.activePath = activePath
     },
+  },
+  computed: {
+    ...mapState(['rightList']),
   },
 }
 </script>
