@@ -6,7 +6,7 @@
         <img src="../assets/heima.png" alt />
         <span>电商后台管理系统</span>
       </div>
-      <el-button type="info" @click="logout">退出</el-button>
+      <el-button type="info" @click="logout">{{ username }}退出</el-button>
     </el-header>
     <!-- 页面主体区域 -->
     <el-container>
@@ -84,6 +84,8 @@ export default {
   methods: {
     logout() {
       this.$router.push('/login')
+      sessionStorage.clear() //删除sessionStorage中的数据
+      window.location.reload() //重新刷新当前页面，使vuex中state中的数据从sessionStorage中从新获取使其内容清空
     },
     // 点击按钮，切换菜单的折叠与展开
     toggleCollapse() {
@@ -96,7 +98,8 @@ export default {
     },
   },
   computed: {
-    ...mapState(['rightList']),
+    /* 将vuex中state中的数据同名映射为计算属性 */
+    ...mapState(['rightList', 'username']),
   },
 }
 </script>

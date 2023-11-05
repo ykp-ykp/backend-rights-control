@@ -85,7 +85,7 @@ export default {
         if (res.meta.status !== 200) return this.$message.error('登录失败！')
         console.log(res)
         this.$store.commit('setRightList', res.rights)
-        this.$message.success('登录成功')
+        this.$store.commit('setUsername', res.data.username)
         this.$router.push('/home')
       })
     },
