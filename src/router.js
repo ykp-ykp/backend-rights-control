@@ -8,31 +8,18 @@ import Roles from '@/components/role/Roles.vue'
 import GoodsCate from '@/components/goods/GoodsCate.vue'
 import GoodsList from '@/components/goods/GoodsList.vue'
 import NotFound from '@/components/NotFound.vue'
-import store from '@/store'
 
 Vue.use(Router)
 
-const userRule = { path: '/users', component: Users }
-const roleRule = { path: '/roles', component: Roles }
-const goodsRule = { path: '/goods', component: GoodsList }
-const categoryRule = { path: '/categories', component: GoodsCate }
-
-const ruleMapping = {
-  'users': userRule,
-  'roles': roleRule,
-  'goods': goodsRule,
-  'categories': categoryRule
-}
-
 const router = new Router({
   routes: [
-    { 
-      path: '/', 
-      redirect: '/home' 
+    {
+      path: '/',
+      redirect: '/welcome',
     },
-    { 
-      path: '/login', 
-      component: Login 
+    {
+      path: '/login',
+      component: Login,
     },
     {
       path: '/home',
@@ -40,43 +27,17 @@ const router = new Router({
       redirect: '/welcome',
       children: [
         { path: '/welcome', component: Welcome },
-        // { path: '/users', component: Users },
-        // { path: '/roles', component: Roles },
-        // { path: '/goods', component: GoodsList },
-        // { path: '/categories', component: GoodsCate }
-      ]
+        { path: '/users', component: Users },
+        { path: '/roles', component: Roles },
+        { path: '/goods', component: GoodsList },
+        { path: '/categories', component: GoodsCate },
+      ],
     },
     {
       path: '*',
-      component: NotFound
-    }
-  ]
+      component: NotFound,
+    },
+  ],
 })
-
-router.beforeEach((to, from, next) => {
-  if (to.path === '/login') {
-    next()
-  } else {
-    const token = sessionStorage.getItem('token')
-    if(!token) {
-      next('/login')
-    } else {
-      next()
-    }
-  }
-})
-
-export function initDynamicRoutes() {
-  const currentRoutes = router.options.routes
-  const rightList = store.state.rightList
-  rightList.forEach(item => {
-    item.children.forEach(item => {
-      const itemRule = ruleMapping[item.path]
-      itemRule.meta = item.rights
-      currentRoutes[2].children.push(itemRule)
-    })
-  })
-  router.addRoutes(currentRoutes)
-}
 
 export default router

@@ -6,7 +6,7 @@
         <img src="../assets/heima.png" alt />
         <span>电商后台管理系统</span>
       </div>
-      <el-button type="info" @click="logout">{{username}}退出</el-button>
+      <el-button type="info" @click="logout">{{ username }}退出</el-button>
     </el-header>
     <!-- 页面主体区域 -->
     <el-container>
@@ -15,38 +15,40 @@
         <div class="toggle-button" @click="toggleCollapse">|||</div>
         <!-- 侧边栏菜单区域 -->
         <el-menu
-         background-color="#333744"
-         text-color="#fff"
-         active-text-color="#409EFF"
-         unique-opened
-         :collapse="isCollapse"
-         :collapse-transition="false"
-         router
-         :default-active="activePath"
-         >
+          background-color="#333744"
+          text-color="#fff"
+          active-text-color="#409EFF"
+          unique-opened
+          :collapse="isCollapse"
+          :collapse-transition="false"
+          router
+          :default-active="activePath"
+        >
           <!-- 一级菜单 -->
-          <el-submenu 
-            :index="item.id + ''" 
-            v-for="item in menulist" 
-            :key="item.id">
+          <el-submenu
+            :index="item.id + ''"
+            v-for="item in menulist"
+            :key="item.id"
+          >
             <!-- 一级菜单的模板区域 -->
             <template slot="title">
               <!-- 图标 -->
-              <i :class="['iconfont',item.icon]"></i>
+              <i :class="['iconfont', item.icon]"></i>
               <!-- 文本 -->
-              <span>{{item.authName}}</span>
+              <span>{{ item.authName }}</span>
             </template>
             <!-- 二级菜单 -->
             <el-menu-item
               :index="'/' + subItem.path"
               v-for="subItem in item.children"
               :key="subItem.id"
-              @click="saveNavState('/' + subItem.path)">
+              @click="saveNavState('/' + subItem.path)"
+            >
               <template slot="title">
                 <!-- 图标 -->
                 <i class="el-icon-menu"></i>
                 <!-- 文本 -->
-                <span>{{subItem.authName}}</span>
+                <span>{{ subItem.authName }}</span>
               </template>
             </el-menu-item>
           </el-submenu>
@@ -62,7 +64,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 export default {
   data() {
     return {
@@ -71,17 +72,12 @@ export default {
       // 是否折叠
       isCollapse: false,
       // 被激活的链接地址
-      activePath: ''
+      activePath: '',
     }
   },
-  created() {
-    this.activePath = window.sessionStorage.getItem('activePath')
-    this.menulist = this.rightList
-  },
+  created() {},
   methods: {
     logout() {
-      sessionStorage.clear()
-      window.location.reload()
       this.$router.push('/login')
     },
     // 点击按钮，切换菜单的折叠与展开
@@ -92,11 +88,8 @@ export default {
     saveNavState(activePath) {
       window.sessionStorage.setItem('activePath', activePath)
       this.activePath = activePath
-    }
+    },
   },
-  computed: {
-    ...mapState(['rightList','username'])
-  }
 }
 </script>
 

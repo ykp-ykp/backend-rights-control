@@ -7,11 +7,10 @@ import './assets/fonts/iconfont.css'
 import './assets/css/global.css'
 import './utils/http.js'
 import './utils/dateformat.js'
-import './utils/permission.js'
 Vue.config.productionTip = false
 
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount('#app')
