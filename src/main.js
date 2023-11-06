@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router.js'
+import router from './router/index.js'
 import store from './store'
 import './plugins/element.js'
 import './assets/fonts/iconfont.css'

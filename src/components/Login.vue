@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import { initDynamicRoutes } from '@/router/index.js'
 export default {
   data() {
     return {
@@ -83,9 +84,11 @@ export default {
         if (!valid) return
         const { data: res } = await this.$http.post('login', this.loginForm)
         if (res.meta.status !== 200) return this.$message.error('登录失败！')
-        console.log(res)
         this.$store.commit('setRightList', res.rights)
         this.$store.commit('setUsername', res.data.username)
+        sessionStorage.setItem('token', res.data.token)
+        //进行动态路由的添加
+        initDynamicRoutes()
         this.$router.push('/home')
       })
     },
