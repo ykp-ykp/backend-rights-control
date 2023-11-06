@@ -43,6 +43,7 @@
             <el-button 
               type="primary" 
               icon="el-icon-edit" 
+              v-permission="{action:'edit', effect:'disabled'}"
               size="mini">
             </el-button>
             <!-- 删除按钮 -->
@@ -50,6 +51,7 @@
               type="danger"
               icon="el-icon-delete"
               size="mini"
+              v-permission="{action:'delete', effect:'disabled'}"
               @click="removeById(scope.row.id)">
             </el-button>
             <!-- 分配角色按钮 -->

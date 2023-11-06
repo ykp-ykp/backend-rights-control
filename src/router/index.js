@@ -54,16 +54,19 @@ router.beforeEach((to, from, next) => {
 })
 
 export function initDynamicRoutes() {
-  //根据二级权限，动态添加路由规则
-  console.log(router)
+  //根据二级权限，动态添加路由规则，并给路由项新增meta字段，表示在当前路由下具有的权限
   // const currentRoutes = router.options.routes
   store.state.rightList.forEach((item) => {
     item.children.forEach((item) => {
-      // currentRoutes[2].children.push(routesMap[item.path])
-      router.addRoute('home', routesMap[item.path])
+      let routeItem = routesMap[item.path]
+      //给当前路由添加上用户所具有的权限列表
+      routeItem.meta = item.rights
+      // currentRoutes[2].children.push(routeItem)
+      router.addRoute('home', routeItem)
     })
   })
-  // router.addRoutes(currentRoutes)   addRoutes方法已弃用
+  // router.addRoutes(currentRoutes)   //addRoutes方法已弃用
+  
 }
 
 export default router

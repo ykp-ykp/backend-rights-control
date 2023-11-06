@@ -16,7 +16,7 @@
           </el-input>
         </el-col>
         <el-col :span="4">
-          <el-button type="primary" v-permission="{action:'delete'}">添加商品</el-button>
+          <el-button type="primary" v-permission="{action:'add',effect:'disabled'}">添加商品</el-button>
         </el-col>
       </el-row>
 
