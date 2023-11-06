@@ -5,6 +5,12 @@
       <div class="avatar_box">
         <img src="../assets/logo.png" alt />
       </div>
+      <el-button id="admin" type="primary" @click="selectUser('admin')"
+        >admin</el-button
+      >
+      <el-button id="zhangsan" type="primary" @click="selectUser('zhangsan')"
+        >zhangsan</el-button
+      >
       <!-- 登录表单区域 -->
       <el-form
         ref="loginFormRef"
@@ -92,6 +98,20 @@ export default {
         this.$router.push('/home')
       })
     },
+    selectUser(user) {
+      if (user === 'admin') {
+        this.loginForm = {
+          username: 'admin',
+          password: '123456',
+        }
+      } else {
+        this.loginForm = {
+          username: 'zhangsan',
+          password: '123456',
+        }
+      }
+      this.login()
+    },
   },
 }
 </script>
@@ -129,6 +149,14 @@ export default {
       border-radius: 50%;
       background-color: #eee;
     }
+  }
+  #admin {
+    float: left;
+    margin: 40px auto auto 30px;
+  }
+  #zhangsan {
+    float: right;
+    margin: 40px 30px auto auto;
   }
 }
 
